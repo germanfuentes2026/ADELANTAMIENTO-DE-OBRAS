@@ -269,7 +269,11 @@ with t4:
 st.caption(f"Controles: VAN del resultado = {ind['Control VAN resultado (=0)']:.4f} (debe ser ~0) · "
            f"VAN costo fin. − C48 = {ind['Control VAN costo fin. − C48']:.4f}")
 
-buf = io.BytesIO()
-exportar_excel(res, buf)
-st.download_button("Descargar Excel", buf.getvalue(), "flujo_obras.xlsx",
-                   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+try:
+    buf = io.BytesIO()
+    exportar_excel(res, buf)
+    st.download_button("Descargar Excel", buf.getvalue(), "flujo_obras.xlsx",
+                       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+except ModuleNotFoundError:
+    st.info("Para descargar el Excel agregá `openpyxl` al requirements.txt.")
+
